@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Promise For You</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ffafbd;
+            --accent-red: #d63031;
+            --text-color: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            max-width: 550px;
+            width: 92%;
+            z-index: 10;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 { color: var(--accent-red); margin-bottom: 10px; }
+        
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn { background-color: var(--accent-red); color: white; }
+        #noBtn { background-color: #b2bec3; color: white; position: absolute; transition: 0.1s ease; }
+
+        #celebration { display: none; text-align: center; }
+
+        .couple-photo {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 20px;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin: 20px auto;
+            display: block;
+        }
+
+        .letter-content {
+            text-align: left;
+            line-height: 1.8;
+            background: #fffafa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #fab1a0;
+            white-space: pre-line;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .cat-gif { width: 100px; height: auto; border-radius: 10px; margin: 10px; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="questionArea">
+            <h1>Hi Kunjuse ❤️</h1>
+            <h2>Will you be my Valentine?</h2>
+            <div class="btn-container">
+                <button id="yesBtn" onclick="showLove()">Yes!</button>
+                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="celebration">
+            <h1 style="color: var(--accent-red);">Yay! I Love You! 💖</h1>
+            
+            <img src="our-photo.jpg" alt="Our Special Photo" class="couple-photo">
+            
+            <div class="letter-content">
+My Dear Aparna,
+I don’t ask for the world, I don’t ask for perfection… I only ask for one promise from you — that no matter what life brings, we choose each other every single day.
+
+Promise me that when days get heavy, we won’t let go. Promise me that even in silence, our hearts will still speak. Promise me that this love we hold so gently will always be protected by both of us.
+
+I promise you the same — my loyalty, my patience, my effort, and a love that doesn’t fade with time. Let’s promise to stay, to fight for us, and to grow together.
+
+Because with you, love feels like home. ❤️
+You are the most beautiful person I know, inside and out. I want to be yours forever, just like the song says.
+
+<strong>Always yours, Pranav </strong>
+            </div>
+
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueGZueCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" class="cat-gif">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgm');
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            noBtn.style.position = 'fixed';
+        }
+
+        function showLove() {
+            // This attempts to play the song.mp3 file when she clicks Yes
+            music.play().catch(error => {
+                console.log("Audio playback failed. Ensure 'song.mp3' is in the same folder.");
+            });
+
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            
+            var end = Date.now() + (4 * 1000);
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#d63031', '#fd79a8'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#d63031', '#fd79a8'] });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+    </script>
+</body>
+</html>
